@@ -1,0 +1,11 @@
+
+package br.eti.leticia.airports.repositories; 
+import br.eti.leticia.airports.entities.Airport;
+import org.springframework.data.jpa.repository.JpaRepository;
+public interface AirportRepository extends JpaRepository<Airport, Long> {
+}
+
+
+    
+    
+
