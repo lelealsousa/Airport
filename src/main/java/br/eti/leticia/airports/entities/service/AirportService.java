@@ -3,6 +3,8 @@ package br.eti.leticia.airports.entities.service;
 
 import br.eti.leticia.airports.entities.Airport;
 import br.eti.leticia.airports.entities.DTO.AirportMinDTO;
+import br.eti.leticia.airports.entities.DTO.AirportNearMeDTO;
+import br.eti.leticia.airports.entities.projections.AirportNearMeProjection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,13 @@ public class AirportService {
     public Airport findByIataCode(String iataCode) {
         Airport result = airportRepository.findByIataCode(iataCode);
         return result;
+    }
+    
+    public List<AirportNearMeDTO> FindNearMe(double latitude, double longitude) {
+       List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+       List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+                .map(x -> new AirportNearMeDTO(x)).toList();
+        return resultDTO;
     }
 }
 
