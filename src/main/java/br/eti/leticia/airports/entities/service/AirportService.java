@@ -2,6 +2,7 @@
 package br.eti.leticia.airports.entities.service;
 
 import br.eti.leticia.airports.entities.Airport;
+import br.eti.leticia.airports.entities.DTO.AirportMinDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,19 @@ public class AirportService {
         return result;
                 
     }
-    
+    /**
+ * Retorna DTO AirportsMinDTO filtrado por country (pais).
+ *
+ * @param country
+ * @return
+ */
+ public List<AirportMinDTO> findByCountry(String country) {
+    List<Airport> resultAirport = airportRepository.findByCountryIgnoreCase(country);
+
+    List<AirportMinDTO> resultDTO = resultAirport.stream()
+            .map(x -> new AirportMinDTO(x)).toList();
+
+    return resultDTO;
+}
+
 }
